@@ -1,4 +1,4 @@
-# 
+# Putnam-AXIOM E 
 
 ## Install
 ```bash
@@ -18,6 +18,7 @@ pip list | grep antlr4
 
 ## Quick start
 
+Evluate Gemma-2-2b on the original 53 Putnam questions:
 ```bash
 # activate py env
 conda activate putnam_axiom
@@ -33,8 +34,10 @@ export benchmark_and_optional_task='putnam_axiom_53'
 export model_task_output_path='$HOME/data/runs_outs'
 mkdir -p $model_task_output_path
 
+# choose gpu
+export CUDA_VISIBLE_DEVICES=3
+
 # run lm eval with puntma-axiom
-export CUDA_VISIBLE_DEVICES=0
 lm_eval --model vllm \
     --model_args ${model_args} \
     --tasks ${benchmark_and_optional_task} \
@@ -44,4 +47,47 @@ lm_eval --model vllm \
     --output_path ${model_task_output_path} \
     --log_samples
 
+```
+Sample output:
+```bash
+|     Tasks     |Version|Filter|n-shot|  Metric   |   |Value |   |Stderr|
+|---------------|------:|------|-----:|-----------|---|-----:|---|-----:|
+|putnam_axiom_53|      1|none  |     4|exact_match|↑  |0.0189|±  |0.0189|
+```
+
+Evaluate Gemma-2-2b on the 265 (5*53) Variations Putnam problems:
+```bash
+# activate py env
+conda activate putnam_axiom
+
+# model & model args
+export model_name_or_path="google/gemma-2-2b"
+export model_args="pretrained=${model_name_or_path},dtype=auto"
+
+# select putnam-axiom benchmark
+export benchmark_and_optional_task='putnam_axiom_variations'
+
+# saving outputs
+export model_task_output_path='$HOME/data/runs_outs'
+mkdir -p $model_task_output_path
+
+# choose gpu
+export CUDA_VISIBLE_DEVICES=3
+
+# run lm eval with puntma-axiom
+lm_eval --model vllm \
+    --model_args ${model_args} \
+    --tasks ${benchmark_and_optional_task} \
+    --trust_remote_code \
+    --batch_size auto:4 \
+    --device cuda \
+    --output_path ${model_task_output_path} \
+    --log_samples
+    
+```
+Sample output:
+```bash
+|         Tasks         |Version|Filter|n-shot|  Metric   |   |Value|   |Stderr|
+|-----------------------|------:|------|-----:|-----------|---|----:|---|-----:|
+|putnam_axiom_variations|      1|none  |     4|exact_match|↑  |    0|±  |     0|
 ```
