@@ -94,7 +94,7 @@ Sample output:
 
 note: use `putnam_axiom_original` for `benchmark_and_optional_task` to use the the original `256` problems used for the original evaluation. 
 
-## Quick start with Pythono
+## Quick start with Python
 Evluate Gemma-2-2b on the original 53 Putnam questions:
 ```bash
 # set python env
