@@ -137,9 +137,4 @@ export mode='dryrun'
 python ~/brando9/putnam-axiom-preview-lm-evaluation-harness/lm_eval_py_run.py --task ${task} --model_name_or_path ${model_name_or_path} --mode ${mode}
 ```
 
-Sample output:
-```bash
-
-```
-
 Note: change `MyLM`'s `generate_until` to call OpenAI's api (or desired closed model) to evaluate a closed model and set key. 
