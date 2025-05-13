@@ -1,0 +1,3 @@
+include: putnam_axiom_zipfit.yaml
+test_split: train
+task: putnam_axiom_zipfit_train 
